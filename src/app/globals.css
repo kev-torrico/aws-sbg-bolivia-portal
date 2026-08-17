@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-secondary: var(--secondary);
+
+  --color-squid: var(--squid);
+  --color-squid-light: var(--squid-light);
+  --color-aws-orange: var(--aws-orange);
+  --color-bolivia-red: var(--bolivia-red);
+  --color-bolivia-yellow: var(--bolivia-yellow);
+  --color-bolivia-green: var(--bolivia-green);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-ping-slow: ping-slow 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  75%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+:root {
+  color-scheme: dark;
+
+  /* AWS core palette */
+  --squid: #232f3e;
+  --squid-light: #2e3b4e;
+  --aws-orange: #ff9900;
+
+  /* Bolivia flag accents */
+  --bolivia-red: #d52b1e;
+  --bolivia-yellow: #f9e300;
+  --bolivia-green: #007934;
+
+  --background: #161e29;
+  --foreground: #f4f6f8;
+  --card: #202b39;
+  --card-foreground: #f4f6f8;
+  --secondary: #2b3849;
+  --muted: #253141;
+  --muted-foreground: #9aa7b8;
+  --border: rgba(255, 255, 255, 0.09);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Fade-up on scroll reveal helper */
+.reveal {
+  opacity: 0;
+}
+.reveal.is-visible {
+  animation: var(--animate-fade-up);
+}
+
+/* Mapbox GL popup + controls theming to match the dark AWS surface */
+.mapboxgl-popup {
+  z-index: 30;
+}
+.mapboxgl-popup-content {
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.mapboxgl-popup-tip {
+  display: none !important;
+}
+.mapboxgl-popup-close-button {
+  display: none !important;
+}
+.mapboxgl-ctrl-group {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  overflow: hidden;
+}
+.mapboxgl-ctrl-group button + button {
+  border-top: 1px solid var(--border) !important;
+}
+.mapboxgl-ctrl button .mapboxgl-ctrl-icon {
+  filter: invert(1) hue-rotate(180deg) brightness(1.4);
+}
+.mapboxgl-ctrl-attrib {
+  background: rgba(22, 30, 41, 0.7) !important;
+}
+.mapboxgl-ctrl-attrib a {
+  color: #9aa7b8 !important;
 }
