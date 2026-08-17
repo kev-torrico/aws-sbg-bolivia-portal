@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AWS Student Builder Group Bolivia — Portal
 
-## Getting Started
+Sitio web de la comunidad **AWS Student Builder Groups (SBG) Bolivia**. Es un landing page hecho con Next.js que conecta a los distintos capítulos universitarios del país: muestra un mapa interactivo con la ubicación de cada capítulo y enlaces directos a sus grupos de Meetup y WhatsApp.
 
-First, run the development server:
+## Qué vas a encontrar en el sitio
+
+- **Hero** — Presentación de la comunidad con animaciones de entrada (GSAP) y accesos rápidos para unirse o ver los capítulos.
+- **Mapa de capítulos (`#mapa`)** — Mapa interactivo de Bolivia (Mapbox GL) con un pin por capítulo. Al hacer clic en un pin se abre un popup con el detalle del capítulo.
+- **Capítulos de Bolivia (`#capitulos`)** — Grid de tarjetas, una por capítulo, con ciudad/departamento, universidad, estado (activo / próximamente) y botones directos a su **Meetup** y **WhatsApp**. Actualmente incluye capítulos en Cochabamba, La Paz, Santa Cruz, Tarija y Sucre.
+- **Header y Footer** — Navegación del sitio.
+
+Los datos de los capítulos viven en [src/data/sbg-cities.ts](src/data/sbg-cities.ts), por lo que agregar/editar un capítulo es simplemente editar ese archivo.
+
+## Requisitos previos
+
+- **Node.js** 20 o superior (recomendado, por las dependencias de tipos `@types/node`).
+- **npm** (el proyecto trae `package-lock.json`; también puedes usar yarn/pnpm/bun si lo prefieres).
+- Un **token de acceso de Mapbox** (gratuito) para que el mapa funcione. Se obtiene en [account.mapbox.com/access-tokens](https://account.mapbox.com/access-tokens/).
+
+## Instalación
+
+1. Clona/entra a la carpeta del proyecto e instala las dependencias:
+
+   ```bash
+   npm install
+   ```
+
+2. Crea tu archivo de variables de entorno a partir del ejemplo incluido:
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+3. Edita `.env.local` y coloca tu token real de Mapbox:
+
+   ```bash
+   NEXT_PUBLIC_MAPBOX_TOKEN=tu_token_de_mapbox_aqui
+   ```
+
+   > Si no configuras el token, el sitio funciona igual, pero en la sección del mapa se mostrará un aviso pidiendo configurarlo en lugar del mapa interactivo.
+
+## Levantar el proyecto en desarrollo
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en el navegador. La página se recarga automáticamente al guardar cambios.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Otros comandos disponibles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Comando         | Descripción                                        |
+| --------------- | --------------------------------------------------- |
+| `npm run dev`   | Levanta el servidor de desarrollo (con hot reload). |
+| `npm run build` | Genera el build de producción.                      |
+| `npm run start` | Sirve el build de producción (requiere `build` previo). |
+| `npm run lint`  | Corre ESLint sobre el proyecto.                      |
 
-## Learn More
+## Stack técnico
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **[Next.js 16](https://nextjs.org/)** (App Router) + **React 19** + **TypeScript**
+- **Tailwind CSS 4** para estilos
+- **[Mapbox GL / react-map-gl](https://visgl.github.io/react-map-gl/)** para el mapa interactivo
+- **GSAP** y **Lenis** para animaciones y scroll suave
+- **lucide-react** para iconografía
+- **@aws-sdk/client-s3** (integración con S3, según necesidad del proyecto)
