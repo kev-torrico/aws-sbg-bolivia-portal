@@ -1,4 +1,4 @@
-import { Calendar, MessageCircle, X } from "lucide-react";
+import { ArrowUpRight, Calendar, MessageCircle, X } from "lucide-react";
 import { CHAPTER_STATUS_META, type SbgCity } from "@/types/sbg";
 
 interface CityPopupProps {
@@ -10,21 +10,26 @@ export function CityPopup({ city, onClose }: CityPopupProps) {
   const statusMeta = CHAPTER_STATUS_META[city.status];
 
   return (
-    <div className="w-65 max-w-[calc(100vw-3rem)] overflow-hidden rounded-xl border border-aws-orange/30 bg-card shadow-2xl shadow-black/50">
-      <div className="h-1 w-full bg-linear-to-r from-bolivia-red via-bolivia-yellow to-bolivia-green" />
+    <div className="w-72 max-w-[calc(100vw-3rem)] overflow-hidden rounded-md border border-border bg-card shadow-[0_1px_2px_rgba(6,10,20,0.4),0_8px_24px_rgba(6,10,20,0.35)]">
+      <div
+        className="h-1"
+        style={{ backgroundColor: `var(${statusMeta.colorVar})` }}
+      />
 
-      <div className="p-4">
-        <div className="flex items-start justify-between gap-2">
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              {city.city}, {city.department}
+            <p className="font-mono text-[0.625rem] tracking-[0.1em] text-slate-200">
+              {city.city.toUpperCase()} · {city.department.toUpperCase()}
             </p>
-            <h3 className="mt-1 text-base font-bold text-card-foreground">{city.chapterName}</h3>
+            <h3 className="mt-2 text-base leading-5 font-medium text-card-foreground">
+              {city.chapterName}
+            </h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            className="rounded-sm p-1 text-slate-200 transition-colors hover:bg-slate-800 hover:text-white"
             aria-label="Cerrar"
           >
             <X className="h-4 w-4" aria-hidden="true" />
@@ -32,10 +37,10 @@ export function CityPopup({ city, onClose }: CityPopupProps) {
         </div>
 
         <span
-          className="mt-3 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold"
+          className="mt-4 inline-flex items-center gap-2 rounded-sm border px-2 py-1 font-mono text-[0.625rem] tracking-[0.08em] uppercase"
           style={{
-            borderColor: `color-mix(in srgb, var(${statusMeta.colorVar}) 40%, transparent)`,
-            backgroundColor: `color-mix(in srgb, var(${statusMeta.colorVar}) 15%, transparent)`,
+            borderColor: `color-mix(in srgb, var(${statusMeta.colorVar}) 45%, transparent)`,
+            backgroundColor: `color-mix(in srgb, var(${statusMeta.colorVar}) 14%, transparent)`,
             color: `var(${statusMeta.colorVar})`,
           }}
         >
@@ -46,26 +51,29 @@ export function CityPopup({ city, onClose }: CityPopupProps) {
           {statusMeta.label}
         </span>
 
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{city.description}</p>
+        <p className="mt-4 text-sm leading-6 text-slate-200">
+          {city.description}
+        </p>
 
-        <div className="mt-4 flex flex-col gap-2">
+        <div className="mt-6 flex gap-2">
           <a
             href={city.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-bolivia-green px-3 py-2 text-sm font-semibold text-white transition-transform hover:scale-[1.02] active:scale-95"
+            className="inline-flex items-center justify-center gap-1.5 rounded-sm bg-aws-orange px-3 py-2 text-xs font-medium text-navy-900 transition-colors hover:bg-[#cc7a00]"
           >
-            <MessageCircle className="h-4 w-4" aria-hidden="true" />
-            Grupo de WhatsApp
+            <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+            WhatsApp
           </a>
           <a
             href={city.meetupUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-aws-orange/40 bg-aws-orange/10 px-3 py-2 text-sm font-semibold text-aws-orange transition-colors hover:bg-aws-orange/20"
+            className="inline-flex items-center justify-center gap-1.5 rounded-sm border border-slate-400 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-white/10"
           >
-            <Calendar className="h-4 w-4" aria-hidden="true" />
-            Comunidad Meetup
+            <Calendar className="h-3.5 w-3.5 text-sky" aria-hidden="true" />
+            Meetup
+            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
           </a>
         </div>
       </div>

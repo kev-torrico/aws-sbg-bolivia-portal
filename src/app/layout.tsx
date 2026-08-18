@@ -1,16 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
+const amazonEmber = localFont({
+  src: [
+    { path: "../fonts/AmazonEmber-Light.ttf", weight: "300", style: "normal" },
+    { path: "../fonts/AmazonEmber-Medium.ttf", weight: "500", style: "normal" },
+  ],
+  variable: "--font-amazon-ember",
   display: "swap",
 });
 
@@ -32,15 +29,12 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "dark",
-  themeColor: "#232f3e",
+  themeColor: "#161D26",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="es"
-      className={`dark h-full antialiased ${inter.variable} ${jetbrainsMono.variable}`}
-    >
+    <html lang="es" className={`h-full antialiased ${amazonEmber.variable}`}>
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
   );
