@@ -14,16 +14,19 @@ const communityLinks = [
 ];
 
 const socialLinks = [
-  { label: "GitHub", href: "https://github.com/", icon: GitBranch },
-  { label: "LinkedIn", href: "https://linkedin.com/", icon: Briefcase },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/awsusergroupcocha/posts/?feedView=all",
+    icon: Briefcase,
+  },
   {
     label: "Meetup",
-    href: "https://www.meetup.com/aws-user-group-bolivia/",
+    href: "https://www.meetup.com/aws-user-group-cochabamba/",
     icon: Calendar,
   },
   {
     label: "WhatsApp",
-    href: "https://chat.whatsapp.com/",
+    href: "https://chat.whatsapp.com/E3JGbxrbDYaICTwRpIN1Jz?mode=gi_t&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAcGRvZgJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAadSLgJ1R5v-KUSqmYmNk0o9G35uiOwO87jeAZ3DTt5KqWF5R7V1gpLGQEthwg_aem_Nv1CNHejj_ud_GL4enfi2A",
     icon: MessageCircle,
   },
 ];
