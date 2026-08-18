@@ -2,13 +2,13 @@ export type ChapterStatus = "active" | "coming-soon" | "inactive";
 
 export interface ChapterStatusMeta {
   label: string;
-  colorVar: "--bolivia-green" | "--bolivia-yellow" | "--bolivia-red";
+  colorVar: "--green" | "--orange" | "--slate-400";
 }
 
 export const CHAPTER_STATUS_META: Record<ChapterStatus, ChapterStatusMeta> = {
-  active: { label: "Comunidad Activa", colorVar: "--bolivia-green" },
-  "coming-soon": { label: "Próximamente", colorVar: "--bolivia-yellow" },
-  inactive: { label: "Inactiva", colorVar: "--bolivia-red" },
+  active: { label: "Comunidad activa", colorVar: "--green" },
+  "coming-soon": { label: "Próximamente", colorVar: "--orange" },
+  inactive: { label: "Inactiva", colorVar: "--slate-400" },
 };
 
 export interface SbgCity {

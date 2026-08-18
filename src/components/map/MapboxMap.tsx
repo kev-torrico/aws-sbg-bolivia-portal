@@ -9,10 +9,17 @@ import { CHAPTER_STATUS_META, type SbgCity } from "@/types/sbg";
 import { CityPopup } from "@/components/map/CityPopup";
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-
 const BOLIVIA_CENTER = { latitude: -16.2901, longitude: -63.5887, zoom: 5.5 };
 
-function CityMarker({ city, isSelected, onSelect }: { city: SbgCity; isSelected: boolean; onSelect: () => void }) {
+function CityMarker({
+  city,
+  isSelected,
+  onSelect,
+}: {
+  city: SbgCity;
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
   const statusMeta = CHAPTER_STATUS_META[city.status];
 
   return (
@@ -28,20 +35,16 @@ function CityMarker({ city, isSelected, onSelect }: { city: SbgCity; isSelected:
       <button
         type="button"
         aria-label={city.chapterName}
-        className="group relative block h-6 w-6 cursor-pointer"
+        className="relative block h-7 w-7 cursor-pointer rounded-full border-2 border-navy-900 transition-transform hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky"
+        style={{ backgroundColor: `var(${statusMeta.colorVar})` }}
       >
-        <span
-          className="absolute inset-0 animate-ping-slow rounded-full"
-          style={{ backgroundColor: `var(${statusMeta.colorVar})` }}
-        />
-        <span
-          className="absolute inset-0 rounded-full ring-2 ring-squid transition-transform duration-200 group-hover:scale-125"
-          style={{
-            backgroundColor: "var(--aws-orange)",
-            boxShadow: isSelected ? "0 0 0 4px color-mix(in srgb, var(--aws-orange) 35%, transparent)" : undefined,
-          }}
-        />
-        <span className="absolute inset-1.75 rounded-full bg-squid" />
+        <span className="absolute inset-[5px] rounded-full bg-navy-900" />
+        {isSelected && (
+          <span
+            className="absolute -inset-2 rounded-full border border-aws-orange"
+            aria-hidden="true"
+          />
+        )}
       </button>
     </Marker>
   );
@@ -52,29 +55,33 @@ export function MapboxMap() {
 
   if (!MAPBOX_TOKEN || MAPBOX_TOKEN === "tu_token_de_mapbox_aqui") {
     return (
-      <div className="flex h-110 w-full flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-squid px-6 text-center sm:h-140">
-        <AlertTriangle className="h-8 w-8 text-aws-orange" aria-hidden="true" />
-        <p className="max-w-sm text-sm text-muted-foreground">
-          Configura <code className="rounded bg-secondary px-1.5 py-0.5 text-aws-orange">NEXT_PUBLIC_MAPBOX_TOKEN</code>{" "}
-          en tu archivo <code className="rounded bg-secondary px-1.5 py-0.5">.env.local</code> con un token válido de{" "}
-          <a
-            href="https://account.mapbox.com/access-tokens/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-aws-orange underline underline-offset-2"
-          >
-            Mapbox
-          </a>{" "}
+      <div className="flex h-[22rem] w-full flex-col items-center justify-center gap-4 rounded-md border border-border bg-card px-6 text-center sm:h-[34rem]">
+        <AlertTriangle className="h-7 w-7 text-aws-orange" aria-hidden="true" />
+        <p className="max-w-md text-sm leading-6 text-slate-200">
+          Configura{" "}
+          <code className="bg-slate-800 px-1.5 py-1 font-mono text-xs text-aws-orange">
+            NEXT_PUBLIC_MAPBOX_TOKEN
+          </code>{" "}
+          en{" "}
+          <code className="bg-slate-800 px-1.5 py-1 font-mono text-xs text-white">
+            .env.local
+          </code>{" "}
           para ver el mapa interactivo.
         </p>
+        <a
+          href="https://account.mapbox.com/access-tokens/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-xs tracking-[0.08em] text-sky underline underline-offset-4 hover:text-white"
+        >
+          OBTENER UN TOKEN DE MAPBOX
+        </a>
       </div>
     );
   }
 
   return (
-    <div className="relative h-110 w-full overflow-hidden rounded-2xl border border-border bg-squid sm:h-140">
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-px bg-linear-to-r from-bolivia-red via-bolivia-yellow to-bolivia-green opacity-70" />
-
+    <div className="relative h-[22rem] w-full overflow-hidden rounded-md border border-border bg-slate-800 sm:h-[34rem]">
       <Map
         mapboxAccessToken={MAPBOX_TOKEN}
         initialViewState={BOLIVIA_CENTER}
@@ -98,12 +105,15 @@ export function MapboxMap() {
             latitude={selectedCity.coordinates.lat}
             longitude={selectedCity.coordinates.lng}
             anchor="bottom"
-            offset={20}
+            offset={22}
             closeButton={false}
             closeOnClick={false}
             onClose={() => setSelectedCity(null)}
           >
-            <CityPopup city={selectedCity} onClose={() => setSelectedCity(null)} />
+            <CityPopup
+              city={selectedCity}
+              onClose={() => setSelectedCity(null)}
+            />
           </Popup>
         )}
       </Map>
